@@ -216,17 +216,33 @@ git add .
 git commit -m "Remove node_modules and add .gitignore"
 git push
 
-Screenshot : github
+![alt text](image-6.png)
 
 
-Etape 9 : Jenkins (pipeline)
+### Etape 9 : Jenkins (pipeline): 
+Sna3t fichier `Jenkinsfile` (bla extension) fil racine mta3 el projet 
+Credentials mta3 Docker Hub
+Sna3t el pipeline job
+![alt text](image-7.png)
 
-A compléter : zid houni installation mta3 Jenkins, el Jenkinsfile, w el captures mta3 el pipeline.
+Awel mara hawalt nlanci Jenkins fi Docker (`docker run ... -p 8080:8080 ... jenkins/jenkins:lts`), tla3li :
+ports are not available: exposing port TCP 0.0.0.0:8080 ... bind: Une seule utilisation de chaque adresse de socket ...
 
-groovy
-// Jenkinsfile (a zid houni)
+El sbab : port 8080 mechghoul deja, 5ater 3andi Jenkins mdhabbet 3al Windows yekhdem 3lih. Ma 7ajtich b Jenkins jdid, fa waqqaft el container w kamalt b Jenkins el 9dim (`http://localhost:8080`).
+ 
+ docker login` yfashal b `lookup login: no such host`**
 
-Screenshots : jenkins-pipeline jenkins-result
+Fil build `#1`, stage "Push vers Docker Hub" fashal b :
+Error response from daemon: Get "https://login/v2/": ... lookup login: no such host
+
+El sbab : el credential el 9dim (`dockerhub-creds`) ma kenech s7i7 (el username wala el password fih ghalta). El 7all : sna3t credential jdid `dockerhub-imensaied`, w baddelt fil `Jenkinsfile` el `credentialsId` w el commande `docker login -u %DH_USER% -p %DH_PASS% docker.io`.
+
+### erreur access token has insufficient scopes
+Fil build `#3`, el login nejah (`Login Succeeded`) ama el `docker push` fashal b :
+authentication required - access token has insufficient scopes
+El sbab : el Access Token mta3 Docker Hub kan **Read-only**, ya3ni ma ynajjemch yekteb. El 7all : sna3t token jdid b permission **Read & Write**, w baddelt el password fil credential Jenkins (Update → Change Password).
+
+### El résultat : build `#4` najeh ✅
 
 ### Les liens : 
 GitHub : https://github.com/imensaied13-blip/MyAppReact
