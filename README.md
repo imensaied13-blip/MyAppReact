@@ -228,64 +228,7 @@ groovy
 
 Screenshots : jenkins-pipeline jenkins-result
 
-Résumé des erreurs w el 7all
-Erreur	El sbab	El 7all
-cd Desktop : chemin introuvable	Desktop mouch fi el blasa li kont fiha	Sna3t dossier projets fil home
-docker build -t mern-server ./client	Ghalta fil PDF, tkhalli image tet3ayet mern-server	Esta3malt mern-client
-CMD serve -s build ma yekhdemch	El projet Vite, el dossier esmou dist	Baddelt el CMD l dist
-MongoDB connected ma tla3ch	El code ma fihch mongoose w MONGO_URI	npm install mongoose + zedt mongoose.connect(process.env.MONGO_URI)
-node_modules tab3ath lel GitHub	Ma kenech fama .gitignore	Sna3t .gitignore w git rm -r --cached
-./server ma yetla9ech fil Linux	Linux yfarreq bin majuscule w minuscule	Baddelt l ./Server w ./Client
-El commandes el mohemma
-powershell
-docker compose up --build     # lanci el application
-docker compose ps             # chouf el containers
-docker compose down           # waqqaf kol chay
-docker logs server            # logs mta3 el server
-docker images                 # chouf les images
-
-### 3. Créer le réseau Docker
-
-docker network create mern-network
-
-
-### 4. Exécuter MongoDB dans un conteneur
-
-docker run -d --name mongodb --network mern-network mongo
-
-### 5. Lancer le serveur et le client
-
-```bash
-docker run -d --name server --network mern-network -p 9000:9000 -e MONGO_URI=mongodb://mongodb:27017/mydb mern-server
-docker run -d --name client --network mern-network -p 3000:3000 mern-client
-```
-
-Le serveur se connecte à MongoDB grâce à la variable d'environnement `MONGO_URI` (le nom `mongodb` est résolu par le réseau Docker).
-
-### 6. Docker Compose
-
-Le fichier `docker-compose.yml` définit trois services (`mongodb`, `server`, `client`) et le réseau `mern-network` (driver bridge). Le serveur dépend de `mongodb` et le client dépend du serveur.
-
-Avant de lancer Compose, supprimer les conteneurs manuels :
-
-```bash
-docker rm -f client server mongodb
-docker network rm mern-network
-```
-
-Lancement :
-
-```bash
-docker compose up --build
-```
-
-Arrêt :
-
-```bash
-docker compose down
-```
-
-## Accès
-
-- Client React : http://localhost:3000
-- API Express : http://localhost:9000/api/health
+### Les liens : 
+GitHub : https://github.com/imensaied13-blip/MyAppReact
+Docker Hub (server) : https://hub.docker.com/r/imensaied/mern-server
+Docker Hub (client) : https://hub.docker.com/r/imensaied/mern-client
